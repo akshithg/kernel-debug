@@ -17,6 +17,7 @@
 
 4. connect to gdb
     ```
-    gdb ../linux/vmlinux
+    echo "set auto-load safe-path /path/to/linux" >> ~/.gdbinit
+    gdb ./linux/vmlinux
     (gdb) target remote localhost:1234
     ```

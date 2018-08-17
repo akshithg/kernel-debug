@@ -1,5 +1,6 @@
 #!/bin/bash
 
+LINUX_DIR=./linux
 qemu-system-x86_64 \
     -s \
     -S \
@@ -7,4 +8,4 @@ qemu-system-x86_64 \
     -nographic \
     -append "root=/dev/sda nokaslr 1 single console=ttyS0" \
     -hda ./disk-img/disk.ext4 \
-    -kernel  ../linux/arch/x86_64/boot/bzImage
+    -kernel  $LINUX_DIR/arch/x86_64/boot/bzImage
