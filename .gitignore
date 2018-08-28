@@ -1,3 +1,5 @@
+linux
+*.tar.gz
 .gdb_history
-peda-session*
-/linux
+peda-session-*
+.vscode

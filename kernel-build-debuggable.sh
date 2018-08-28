@@ -1,10 +1,7 @@
 #!/bin/bash
+set -e
 
-clone_linux(){
-    git clone https://github.com/torvalds/linux/ ./linux --depth=1
-}
-
-build_linux(){
+build(){
     pushd ./linux
         make defconfig
         make kvmconfig
@@ -42,5 +39,4 @@ build_linux(){
     popd
 }
 
-# clone_linux
-build_linux
+build

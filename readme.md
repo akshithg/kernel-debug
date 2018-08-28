@@ -1,23 +1,21 @@
 # Kernel Debug Environment
 
-1. Build kernel with debug info
-    ```
-    ./build_debug_kernel.sh
-    ```
+## Build kernel with debug info
 
-2. create disk image
-    ```
-    cd disk-img && ./create-image.sh && cd ..
-    ```
+    make release=v4.19.0rc1 setup_kernel
 
-3. boot kernel in qemu with gdb
-    ```
-    ./qemu_boot_kernel.sh
-    ```
+## Setup disk image
 
-4. connect to gdb
-    ```
-    echo "set auto-load safe-path /path/to/linux" >> ~/.gdbinit
-    gdb ./linux/vmlinux
-    (gdb) target remote localhost:1234
-    ```
+    make setup_disk
+
+## Setup gdb
+
+    make setup_gdb
+
+## boot with qemu
+
+    make boot
+
+## connect gdb
+
+    make gdb
