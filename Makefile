@@ -14,7 +14,7 @@ kernel_extract:
 	mv linux-* linux
 
 kernel_build:
-	./build-debuggable-kernel.sh
+	./kernel-build-debuggable.sh
 
 kernel_clean:
 	rm -rf *.tar.gz *.tar.gz.*

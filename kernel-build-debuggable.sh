@@ -34,6 +34,7 @@ build(){
         ./scripts/config --enable CONFIG_KALLSYMS
         ./scripts/config --disable DEBUG_INFO_REDUCED
         ./scripts/config --disable DEBUG_INFO_SPLIT
+        ./scripts/config --enable CONFIG_DYNAMIC_DEBUG
 
         make -j`nproc`
     popd
