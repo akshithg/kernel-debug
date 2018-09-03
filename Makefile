@@ -6,6 +6,8 @@ all:
 
 setup_kernel: kernel_clean kernel_download kernel_extract kernel_build
 
+setup_kernel_git: kernel_clean kernel_clone kernel_build
+
 kernel_download:
 	wget https://github.com/torvalds/linux/archive/$(release).tar.gz
 
@@ -13,16 +15,19 @@ kernel_extract:
 	tar -xzvf *.tar.gz
 	mv linux-* linux
 
+kernel_clone:
+	git clone https://github.com/torvalds/linux --depth=1
+
 kernel_build:
 	./kernel-build-debuggable.sh
 
 kernel_clean:
-	rm -rf *.tar.gz *.tar.gz.*
+	rm -rf *.tar.gz *.tar.gz.* linux
 
 setup_qemu:
 
 setup_disk:
-	./disk-setup
+	./disk-setup.sh
 
 setup_gdb:
 	./gdb-setup.sh

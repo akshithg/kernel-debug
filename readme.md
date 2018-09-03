@@ -2,7 +2,9 @@
 
 ## Build kernel with debug info
 
-    make release=v4.19.0rc1 setup_kernel
+    $ make release=v4.19.0rc1 setup_kernel (for a specific release)
+    or
+    $ make setup_kernel_git (for the latest torvalds/linux master)
 
 ## Setup disk image
 
@@ -19,7 +21,13 @@
 ## connect gdb
 
     make gdb
+    (gdb) target remote :1234
+    (gdb) c
 
+## changes to the kernel
+
+    edit-kernel-code in ./linux
+    make kernel_build
 
 ## Useful link
 
