@@ -2,10 +2,14 @@
 
 set -e
 
+IMG=disk.ext4
+
 create_img(){
-    IMG=image.ext4
     qemu-img create $IMG 10g
     mkfs.ext4 $IMG
+}
+
+mount(){
     mkdir -p mnt
     sudo mount -o loop $IMG ./mnt
 }
@@ -15,7 +19,7 @@ debootstrap(){
     then
         sudo debootstrap --arch=amd64 --variant=minbase jessie ./mnt
     else
-        sudo debootstrap --include="$@" --arch=amd64 --variant=minbase jessie ./mnt
+        sudo debootstrap --include="$@" --arch=amd64 jessie ./mnt
     fi
 }
 
@@ -32,20 +36,35 @@ copy_application_data(){
 }
 
 copy_application_kernel(){
-    sudo cp $LINUX_DIR/arch/x86_64/boot/bzImage ./mnt/root/kernel_0 # using the same kernel_0 for now
+    sudo cp $LINUX_DIR/arch/x86/boot/vmlinux.bin ./mnt/root/vmlinux_0.bin # using the same kernel_0 for now
+}
+
+copy_kernel_module(){
+    sudo cp -r kmodule ./mnt/root/
 }
 
 make_image(){
     create_img
-    debootstrap "time redis-server"
+    mount
+    debootstrap "make time redis-server"
     enable_networking
     copy_application_data
     copy_application_kernel
+    copy_kernel_module
     unmount
-    mv image.ext4 disk.ext4
+}
+
+remount_update()
+{
+    mount
+    copy_application_data
+    copy_application_kernel
+    copy_kernel_module
+    unmount
 }
 
 pushd disk
     LINUX_DIR=../linux
     make_image
+    # remount_update
 popd

@@ -1,0 +1,37 @@
+diff --git a/fs/exec.c b/fs/exec.c
+index 1ebf6e5a..d673aa22 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -1716,6 +1716,9 @@ static int __do_execve_file(int fd, struct filename *filename,
+ 	struct files_struct *displaced;
+ 	int retval;
+ 
++	// noob stuff
++	void *noob_new_mem;
++
+ 	if (IS_ERR(filename))
+ 		return PTR_ERR(filename);
+ 
+@@ -1757,6 +1760,22 @@ static int __do_execve_file(int fd, struct filename *filename,
+ 	if (IS_ERR(file))
+ 		goto out_unmark;
+ 
++	if (strcmp(filename->name, "/usr/bin/redis-server") == 0) {
++		printk(KERN_INFO " **** >>>> executing file: %s", filename->name);
++
++		// we need physically contiguous mem, thus kmalloc and not kvmalloc
++		noob_new_mem = kmalloc(100, GFP_KERNEL);
++		if (!noob_new_mem){
++			printk(KERN_INFO " **** >>>> allocation failed");
++		}
++		else {
++			printk(KERN_INFO " **** >>>> allocation succeeded");
++			kfree(noob_new_mem);
++		}
++
++	} else
++		printk(KERN_INFO " **** executing file: %s", filename->name);
++
+ 	sched_exec();
+ 
+ 	bprm->file = file;
