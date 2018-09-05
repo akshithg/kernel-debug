@@ -9,13 +9,13 @@
 
 static int __init init_hello(void)
 {
-    printk(KERN_INFO "Hello, world 4\n");
+    printk(KERN_INFO "Hello, world\n");
     return 0;
 }
 
 static void __exit cleanup_hello(void)
 {
-    printk(KERN_INFO "Goodbye, world 4\n");
+    printk(KERN_INFO "Goodbye, world\n");
 }
 
 module_init(init_hello);

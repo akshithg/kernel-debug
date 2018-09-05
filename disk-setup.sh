@@ -19,7 +19,7 @@ debootstrap(){
     then
         sudo debootstrap --arch=amd64 --variant=minbase jessie ./mnt
     else
-        sudo debootstrap --include="$@" --arch=amd64 jessie ./mnt
+        sudo debootstrap --include="$@" --arch=amd64 --variant=minbase jessie ./mnt
     fi
 }
 
@@ -43,19 +43,17 @@ copy_kernel_module(){
     sudo cp -r kmodule ./mnt/root/
 }
 
-make_image(){
+make_base_image(){
     create_img
     mount
     debootstrap "make time redis-server"
     enable_networking
-    copy_application_data
-    copy_application_kernel
-    copy_kernel_module
     unmount
+    cp disk.ext4 base.ext4
 }
 
-remount_update()
-{
+add_stuff(){
+    cp base.ext4 disk.ext4
     mount
     copy_application_data
     copy_application_kernel
@@ -65,6 +63,6 @@ remount_update()
 
 pushd disk
     LINUX_DIR=../linux
-    make_image
-    # remount_update
+    # make_base_image
+    add_stuff
 popd
