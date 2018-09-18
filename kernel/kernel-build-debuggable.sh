@@ -2,7 +2,7 @@
 set -e
 
 build(){
-    pushd ./linux
+    pushd ../linux
         make defconfig
         make kvmconfig
 

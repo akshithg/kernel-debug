@@ -1,25 +1,36 @@
-# Kernel Debug Environment
+# Kernel Dev/Debug Environment
 
-## Build kernel with debug info
+```
+.
+├── disk // setting up a boot disk
+│   ├── apps
+│   │   └── redis
+│   │       ├── run-bench.sh
+│   │       ├── start-redis.sh
+│   │       └── stop-redis.sh
+│   ├── disk-setup.sh
+│   └── interfaces
+├── gdb // gdb tools and scripts
+│   └── gdb-setup.sh
+├── kernel // kernel tools and scripts
+│   ├── kernel-text.py
+│   └── kernel-build-debuggable.sh
+├── kernel_module // kernel module tools and scripts
+│   └── Makefile
+├── linux // create this
+├── Makefile
+├── qemu // qemu tools and scripts
+│   ├── qemu-boot.sh
+│   └── qemu-kill.sh
+└── readme.md // this file
 
-    make release=v4.19.0rc1 setup_kernel
+```
 
-## Setup disk image
+Prerequisites:
 
-    make setup_disk
-
-## Setup gdb
-
-    make setup_gdb
-
-## boot with qemu
-
-    make boot
-
-## connect gdb
-
-    make gdb
-
+    - gdb
+    - qemu
+    - linux-kernel
 
 ## Useful link
 
