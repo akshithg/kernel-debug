@@ -29,10 +29,11 @@ enable_networking(){
 
 unmount(){
     sudo umount ./mnt
+    rm -rf mnt
 }
 
 copy_application_data(){
-    sudo cp -r redis ./mnt/root/
+    sudo cp -r apps ./mnt/root/
 }
 
 copy_application_kernel(){
@@ -40,7 +41,7 @@ copy_application_kernel(){
 }
 
 copy_kernel_module(){
-    sudo cp -r kmodule ./mnt/root/
+    sudo cp -r ../kernel_module ./mnt/root/
 }
 
 make_base_image(){
@@ -61,8 +62,6 @@ add_stuff(){
     unmount
 }
 
-pushd disk
-    LINUX_DIR=../linux
-    # make_base_image
-    add_stuff
-popd
+LINUX_DIR=../linux
+make_base_image
+add_stuff
