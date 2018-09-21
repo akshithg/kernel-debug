@@ -1,8 +1,6 @@
 #!/bin/bash
 
 qemu-system-x86_64 \
-    -S \
-    -s \
     -smp 1 \
     -nographic \
     -kernel $1 \
