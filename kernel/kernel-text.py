@@ -30,7 +30,6 @@ def get_text(kernel_name):
     kernel_text = fd.read(KERNEL_SIZE)
     kernel_tail = fd.read()
     fd.close()
-    import code; code.interact(local=dict(globals(), **locals()))
     fd = open("./kernel_text", "wb")
     fd.write(kernel_text)
     fd.close()
